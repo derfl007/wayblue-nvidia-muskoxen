@@ -21,8 +21,6 @@ modules:
     repos:
       copr:
         - atim/starship
-      files:
-        - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/rpms/vscodium.repo
     install:
       packages:
         - micro
@@ -33,7 +31,6 @@ modules:
         - podman-docker
         - gamemode # Feral GameMode to optimize OS scheduling dynamically during gaming
         - mangohud # Performance, FPS, and hardware monitoring overlay
-        - vscodium
     remove:
       packages:
         - firefox
@@ -52,6 +49,7 @@ modules:
           - com.heroicgameslauncher.hgl  # Heroic Games Launcher (Epic/GOG/Amazon)
           - org.bifrost.gearlever        # Manage AppImages easily (Bazzite default choice)
           - net.davidotek.pupgui2        # Proton-GE Management
+          - com.vscodium.codium
       - scope: user # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
