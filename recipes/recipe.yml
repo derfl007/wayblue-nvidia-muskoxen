@@ -19,7 +19,6 @@ modules:
 
   - type: dnf
     repos:
-      - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/rpms/vscodium.repo
       copr:
         - atim/starship
     install:
@@ -27,7 +26,6 @@ modules:
         - micro
         - starship # shell
         - helix # cli ide
-        - vscodium
         - docker-ce
         - docker-compose-plugin
         - podman-docker
@@ -37,6 +35,13 @@ modules:
       packages:
         - firefox
         - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+
+  - type: dnf
+    repos:
+      - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/rpms/vscodium.repo
+    install:
+      packages:
+        - vscodium
 
   - type: default-flatpaks
     configurations:
