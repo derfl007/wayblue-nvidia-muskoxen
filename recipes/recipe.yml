@@ -25,6 +25,7 @@ modules:
         - https://download.docker.com/linux/fedora/gpg
       copr:
         - atim/starship
+      nonfree: rpmfusion # needed for the native steam package below
     install:
       packages:
         - micro
@@ -36,6 +37,8 @@ modules:
         - docker-buildx-plugin
         - docker-compose-plugin
         - mangohud # Performance, FPS, and hardware monitoring overlay
+        - steam # native package, matches how Bazzite ships it (vs sandboxed Flatpak)
+        # gamemode is already included in the wayblue base image, no need to reinstall it
     remove:
       packages:
         - firefox
@@ -54,11 +57,10 @@ modules:
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
           - app.zen_browser.zen # Zen Browser
-          - com.valvesoftware.Steam # Official Steam client
           - net.lutris.Lutris # Lutris game manager launcher
           - com.usebottles.bottles # Bottles for independent Wine prefixes
           - com.heroicgameslauncher.hgl # Heroic Games Launcher (Epic/GOG/Amazon)
-          - org.bifrost.gearlever # Manage AppImages easily (Bazzite default choice)
+          - it.mijorus.gearlever # Manage AppImages easily (Bazzite default choice)
           - net.davidotek.pupgui2 # Proton-GE Management
           - com.vscodium.codium
       - scope: user # Also add Flathub user repo, but no user packages
