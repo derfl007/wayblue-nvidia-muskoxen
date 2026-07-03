@@ -25,7 +25,6 @@ modules:
         - https://download.docker.com/linux/fedora/gpg
       copr:
         - atim/starship
-      nonfree: rpmfusion # needed for the native steam package below
     install:
       packages:
         - micro
@@ -38,7 +37,6 @@ modules:
         - docker-compose-plugin
         - mangohud # Performance, FPS, and hardware monitoring overlay
         - steam # native package, matches how Bazzite ships it (vs sandboxed Flatpak)
-        # gamemode is already included in the wayblue base image, no need to reinstall it
     remove:
       packages:
         - firefox
