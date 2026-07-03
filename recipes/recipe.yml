@@ -36,7 +36,10 @@ modules:
         - docker-buildx-plugin
         - docker-compose-plugin
         - mangohud # Performance, FPS, and hardware monitoring overlay
-        - steam # native package, matches how Bazzite ships it (vs sandboxed Flatpak)
+        # gamemode is already included in the wayblue base image, no need to reinstall it
+        # NOTE: native "steam" package is NOT installed here — it conflicts with the base
+        # image's 64-bit-only nonfree AAC codec on the 32-bit pipewire dependency chain.
+        # Steam is installed as a Flatpak instead, see default-flatpaks below.
     remove:
       packages:
         - firefox
@@ -55,6 +58,7 @@ modules:
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
           - app.zen_browser.zen # Zen Browser
+          - com.valvesoftware.Steam # Official Steam client
           - net.lutris.Lutris # Lutris game manager launcher
           - com.usebottles.bottles # Bottles for independent Wine prefixes
           - com.heroicgameslauncher.hgl # Heroic Games Launcher (Epic/GOG/Amazon)
