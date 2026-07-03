@@ -1,9 +1,9 @@
----
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+
 # image will be published to ghcr.io/<user>/<name>
 name: hyprland-nvidia-open-dx
 # description will be included in the image's metadata
-description: Customized wayblue/hyprland-nivida-open with dx tools
+description: Customized wayblue/hyprland-nvidia-open with dx tools
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/wayblueorg/hyprland-nvidia-open
@@ -15,10 +15,14 @@ modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+        destination: / # copies files/system/* into your image's root folder /
 
   - type: dnf
     repos:
+      files:
+        - https://download.docker.com/linux/fedora/docker-ce.repo
+      keys:
+        - https://download.docker.com/linux/fedora/gpg
       copr:
         - atim/starship
     install:
@@ -27,14 +31,21 @@ modules:
         - starship # shell
         - helix # cli ide
         - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
         - docker-compose-plugin
-        - podman-docker
-        - gamemode # Feral GameMode to optimize OS scheduling dynamically during gaming
         - mangohud # Performance, FPS, and hardware monitoring overlay
     remove:
       packages:
         - firefox
         - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - podman-docker # conflicts with docker-ce's /usr/bin/docker binary — pick one, not both
+
+  - type: systemd
+    system:
+      enabled:
+        - docker.service # docker-ce doesn't enable itself on install
 
   - type: default-flatpaks
     configurations:
@@ -42,13 +53,13 @@ modules:
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
-          - app.zen_browser.zen          # Zen Browser
-          - com.valvesoftware.Steam      # Official Steam client
-          - net.lutris.Lutris            # Lutris game manager launcher
-          - com.usebottles.bottles       # Bottles for independent Wine prefixes
-          - com.heroicgameslauncher.hgl  # Heroic Games Launcher (Epic/GOG/Amazon)
-          - org.bifrost.gearlever        # Manage AppImages easily (Bazzite default choice)
-          - net.davidotek.pupgui2        # Proton-GE Management
+          - app.zen_browser.zen # Zen Browser
+          - com.valvesoftware.Steam # Official Steam client
+          - net.lutris.Lutris # Lutris game manager launcher
+          - com.usebottles.bottles # Bottles for independent Wine prefixes
+          - com.heroicgameslauncher.hgl # Heroic Games Launcher (Epic/GOG/Amazon)
+          - org.bifrost.gearlever # Manage AppImages easily (Bazzite default choice)
+          - net.davidotek.pupgui2 # Proton-GE Management
           - com.vscodium.codium
       - scope: user # Also add Flathub user repo, but no user packages
 
