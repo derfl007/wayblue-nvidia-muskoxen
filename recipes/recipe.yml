@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 
 # image will be published to ghcr.io/<user>/<name>
-name: hyprland-nvidia-open-dx
+name: wayblue-nvidia-muskoxen
 # description will be included in the image's metadata
-description: Customized wayblue/hyprland-nvidia-open with dx tools
+description: Customized wayblue/niri-nvidia-open with dx tools
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/wayblueorg/hyprland-nvidia-open
+base-image: ghcr.io/wayblueorg/niri-nvidia-open
 image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
