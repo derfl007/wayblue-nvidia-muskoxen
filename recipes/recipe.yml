@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 
 # image will be published to ghcr.io/<user>/<name>
-name: wayblue-nvidia-muskoxen
+name: hyprland-nvidia-open-dx
 # description will be included in the image's metadata
-description: Customized wayblue/niri-nvidia-open with dx tools
+description: Customized wayblue/hyprland-nvidia-open with dx tools
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/wayblueorg/niri-nvidia-open
+base-image: ghcr.io/wayblueorg/hyprland-nvidia-open
 image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
@@ -21,6 +21,7 @@ modules:
     repos:
       files:
         - https://download.docker.com/linux/fedora/docker-ce.repo
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
       keys:
         - https://download.docker.com/linux/fedora/gpg
       copr:
@@ -40,11 +41,15 @@ modules:
         # NOTE: native "steam" package is NOT installed here — it conflicts with the base
         # image's 64-bit-only nonfree AAC codec on the 32-bit pipewire dependency chain.
         # Steam is installed as a Flatpak instead, see default-flatpaks below.
+        - terra-release # required before noctalia-shell resolves from the Terra repo
+        - noctalia-shell # Quickshell-based shell for niri, pulls in noctalia-qs
     remove:
       packages:
         - firefox
         - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
         - podman-docker # conflicts with docker-ce's /usr/bin/docker binary — pick one, not both
+        - quickshell # defensive: noctalia-qs conflicts with any existing quickshell/quickshell-git
+        - quickshell-git # no-op if not present on this base
 
   - type: systemd
     system:
