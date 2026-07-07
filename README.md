@@ -34,7 +34,9 @@ The `latest` tag will automatically point to the latest build. That build will s
 
 ## Post Installation
 
-You'll have to change your ~/.config/niri/config.kdl according to the instructions in the [noctalia docs](https://docs.noctalia.dev/v5/compositor-settings/niri/)
+Run `ujust setup-noctalia` to automatically create a noctalia niri config file which will be included in your existing niri config.kdl.
+
+Alternatively you can also just change your ~/.config/niri/config.kdl according to the instructions in the [noctalia docs](https://docs.noctalia.dev/v5/compositor-settings/niri/)
 
 ## ISO
 
