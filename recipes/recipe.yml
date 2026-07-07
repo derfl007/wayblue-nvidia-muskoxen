@@ -42,6 +42,7 @@ modules:
         # Steam is installed as a Flatpak instead, see default-flatpaks below.
         - noctalia # Noctalia v5, native C++/OpenGL ES shell for niri — in default Fedora 44+ repos
         - git # needed at build time to fetch the SDDM theme, see script module below
+        - git-lfs
 
     remove:
       packages:
@@ -60,6 +61,7 @@ modules:
       - mkdir -p /usr/share/sddm/themes
       - rm -rf /usr/share/sddm/themes/sddm
       - mv /tmp/sddm-noctalia-theme /usr/share/sddm/themes/sddm
+      - git lfs install --system # install git lfs
 
   - type: default-flatpaks
     configurations:
