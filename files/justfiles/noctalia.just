@@ -1,4 +1,4 @@
-# Noctalia setup helpers for niri
+set spaces := true
 
 [group('niri')]
 setup-noctalia:
@@ -6,7 +6,7 @@ setup-noctalia:
     set -euo pipefail
     NIRI_DIR="$HOME/.config/niri"
     CONFIG="$NIRI_DIR/config.kdl"
-    NOCTALIA_FILE="$NIRI_DIR/noctalia-custom.kdl"
+    NOCTALIA_FILE="$NIRI_DIR/noctalia.kdl"
     mkdir -p "$NIRI_DIR"
     touch "$CONFIG"
 
@@ -94,7 +94,9 @@ overview {
     esac
 
     # (Re)generate the dedicated Noctalia include file.
-    cat > "$NOCTALIA_FILE" << 'NOCTALIA_EOF'
+    # We leave NOCTALIA_EOF unquoted here so that Bash can cleanly expand $OVERVIEW_BLOCK.
+    # This is safe because the set spaces := true wrapper isolates the whole script from the just parser.
+    cat > "$NOCTALIA_FILE" << NOCTALIA_EOF
 // Managed by ujust setup-noctalia — regenerated on every run.
 // Do not hand-edit; changes here will be overwritten.
 
@@ -122,6 +124,8 @@ debug {
   // Allows notification actions and window activation from Noctalia.
   honor-xdg-activation-with-invalid-serial
 }
+
+$OVERVIEW_BLOCK
 
 // Blur
 // CAUTION: requires niri >= 26.04. On older niri versions this block
@@ -160,8 +164,6 @@ binds {
     Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
     Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
-    // Default is Mod+Comma, but that's overridden by niri's Mod+Comma
-    Mod+Shift+Period  { consume-window-into-column; }
     XF86AudioRaiseVolume { spawn-sh "noctalia msg volume-up"; }
     XF86AudioLowerVolume { spawn-sh "noctalia msg volume-down"; }
     XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
@@ -169,18 +171,14 @@ binds {
     XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
 }
 NOCTALIA_EOF
-
-    # Add overview block at the end so that we can escape all special characters in the text above
-    echo $OVERVIEW_BLOCK >> "$NOCTALIA_FILE"
-
     echo "Wrote $NOCTALIA_FILE"
 
     # Wire it into config.kdl, once.
-    if grep -qF "include \"$NOCTALIA_FILE\"" "$CONFIG"; then
-        echo "config.kdl already includes $NOCTALIA_FILE — nothing to add."
+    if grep -qF 'include "noctalia.kdl"' "$CONFIG"; then
+        echo "config.kdl already includes noctalia.kdl — nothing to add."
     else
-        printf '\n// Added by ujust setup-noctalia\ninclude "%s"\n' "$NOCTALIA_FILE" >> "$CONFIG"
-        echo "Added 'include \"$NOCTALIA_FILE\"' to the end of $CONFIG."
+        printf '\n// Added by ujust setup-noctalia\ninclude "noctalia.kdl"\n' >> "$CONFIG"
+        echo "Added 'include \"noctalia.kdl\"' to the end of $CONFIG."
     fi
 
     echo ""
