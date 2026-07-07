@@ -94,7 +94,7 @@ overview {
     esac
 
     # (Re)generate the dedicated Noctalia include file.
-    cat > "$NOCTALIA_FILE" << NOCTALIA_EOF
+    cat > "$NOCTALIA_FILE" << 'NOCTALIA_EOF'
 // Managed by ujust setup-noctalia — regenerated on every run.
 // Do not hand-edit; changes here will be overwritten.
 
@@ -122,8 +122,6 @@ debug {
   // Allows notification actions and window activation from Noctalia.
   honor-xdg-activation-with-invalid-serial
 }
-
-$OVERVIEW_BLOCK
 
 // Blur
 // CAUTION: requires niri >= 26.04. On older niri versions this block
@@ -171,14 +169,18 @@ binds {
     XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
 }
 NOCTALIA_EOF
+
+    # Add overview block at the end so that we can escape all special characters in the text above
+    echo $OVERVIEW_BLOCK >> "$NOCTALIA_FILE"
+
     echo "Wrote $NOCTALIA_FILE"
 
     # Wire it into config.kdl, once.
-    if grep -qF 'include "noctalia.kdl"' "$CONFIG"; then
-        echo "config.kdl already includes noctalia.kdl — nothing to add."
+    if grep -qF "include \"$NOCTALIA_FILE\"" "$CONFIG"; then
+        echo "config.kdl already includes $NOCTALIA_FILE — nothing to add."
     else
-        printf '\n// Added by ujust setup-noctalia\ninclude "noctalia.kdl"\n' >> "$CONFIG"
-        echo "Added 'include \"noctalia.kdl\"' to the end of $CONFIG."
+        printf '\n// Added by ujust setup-noctalia\ninclude "%s"\n' "$NOCTALIA_FILE" >> "$CONFIG"
+        echo "Added 'include \"$NOCTALIA_FILE\"' to the end of $CONFIG."
     fi
 
     echo ""
