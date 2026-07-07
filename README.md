@@ -2,9 +2,7 @@
 
 Modified wayblue-niri-nvidia image with noctalia and some other tools
 
-See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own repository based on this template.
-
-After setup, it is recommended you update this README to describe your custom image.
+See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own bluebuild image.
 
 ## Installation
 
@@ -47,5 +45,5 @@ If build on Fedora Atomic, you can generate an offline ISO with the instructions
 These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
 
 ```bash
-cosign verify --key cosign.pub ghcr.io/blue-build/template
+cosign verify --key cosign.pub ghcr.io/derfl007/wayblue-nvidia-muskoxen
 ```
