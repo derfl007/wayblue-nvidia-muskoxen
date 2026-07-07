@@ -42,8 +42,6 @@ modules:
         # Steam is installed as a Flatpak instead, see default-flatpaks below.
         - noctalia # Noctalia v5, native C++/OpenGL ES shell for niri — in default Fedora 44+ repos
         - git # needed at build time to fetch the SDDM theme, see script module below
-        - qt6-5compat # required by the Noctalia SDDM theme's sddm-greeter-qt6
-        - qt6-declarative # required by the Noctalia SDDM theme's sddm-greeter-qt6
 
     remove:
       packages:
