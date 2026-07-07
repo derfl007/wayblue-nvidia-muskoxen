@@ -1,4 +1,6 @@
-# BlueBuild Template &nbsp; [![bluebuild build badge](https://github.com/blue-build/template/actions/workflows/build.yml/badge.svg)](https://github.com/blue-build/template/actions/workflows/build.yml)
+# Wayblue Nvidia Muskoxen &nbsp; [![bluebuild build badge](https://github.com/blue-build/template/actions/workflows/build.yml/badge.svg)](https://github.com/blue-build/template/actions/workflows/build.yml)
+
+Modified wayblue-niri-nvidia image with noctalia and some other tools
 
 See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own repository based on this template.
 
@@ -7,13 +9,13 @@ After setup, it is recommended you update this README to describe your custom im
 ## Installation
 
 > [!WARNING]  
-> [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
+> This is an image mainly intended for my own personal use. Use at your own risk. If you do try it and notice something is wrong and want to fix it, PRs are welcome, but I don't offer any guarantee that I will merge them or even look at them.
 
 To rebase an existing atomic Fedora installation to the latest build:
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/blue-build/template:latest
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/derfl007/wayblue-nvidia-muskoxen:latest
   ```
 - Reboot to complete the rebase:
   ```
@@ -21,7 +23,7 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
 - Then rebase to the signed image, like so:
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/blue-build/template:latest
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/derfl007/wayblue-nvidia-muskoxen:latest
   ```
 - Reboot again to complete the installation
   ```
@@ -29,6 +31,10 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
 
 The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
+
+## Post Installation
+
+You'll have to change your ~/.config/niri/config.kdl according to the instructions in the [noctalia docs](https://docs.noctalia.dev/v5/compositor-settings/niri/)
 
 ## ISO
 
