@@ -41,6 +41,10 @@ modules:
         # image's 64-bit-only nonfree AAC codec on the 32-bit pipewire dependency chain.
         # Steam is installed as a Flatpak instead, see default-flatpaks below.
         - noctalia # Noctalia v5, native C++/OpenGL ES shell for niri — in default Fedora 44+ repos
+        - git # needed at build time to fetch the SDDM theme, see script module below
+        - qt6-5compat # required by the Noctalia SDDM theme's sddm-greeter-qt6
+        - qt6-declarative # required by the Noctalia SDDM theme's sddm-greeter-qt6
+
     remove:
       packages:
         - firefox
@@ -51,6 +55,13 @@ modules:
     system:
       enabled:
         - docker.service # docker-ce doesn't enable itself on install
+
+  - type: script
+    snippets:
+      - git clone --depth=1 -b noctalia https://github.com/mahaveergurjar/sddm.git /tmp/sddm-noctalia-theme
+      - mkdir -p /usr/share/sddm/themes
+      - rm -rf /usr/share/sddm/themes/sddm
+      - mv /tmp/sddm-noctalia-theme /usr/share/sddm/themes/sddm
 
   - type: default-flatpaks
     configurations:
