@@ -43,6 +43,7 @@ modules:
         - noctalia # Noctalia v5, native C++/OpenGL ES shell for niri — in default Fedora 44+ repos
         - git # needed at build time to fetch the SDDM theme, see script module below
         - git-lfs
+        - xdg-desktop-portal-gtk # fixes Flatpak "Save As" dialogs under niri, see files/system/usr/share/xdg-desktop-portal/niri-portals.conf
 
     remove:
       packages:
