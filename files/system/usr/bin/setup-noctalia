@@ -3,7 +3,7 @@ set -euo pipefail
 
 NIRI_DIR="$HOME/.config/niri"
 CONFIG="$NIRI_DIR/config.kdl"
-NOCTALIA_FILE="$NIRI_DIR/noctalia.kdl"
+NOCTALIA_FILE="$NIRI_DIR/noctalia-custom.kdl"
 
 mkdir -p "$NIRI_DIR"
 touch "$CONFIG"
@@ -172,11 +172,11 @@ NOCTALIA_EOF
 echo "Wrote $NOCTALIA_FILE"
 
 # Wire it into config.kdl, once.
-if grep -qF 'include "noctalia.kdl"' "$CONFIG"; then
-    echo "config.kdl already includes noctalia.kdl — nothing to add."
+if grep -qF 'include "noctalia-custom"' "$CONFIG"; then
+    echo "config.kdl already includes noctalia-custom — nothing to add."
 else
-    printf '\n// Added by ujust setup-noctalia\ninclude "noctalia.kdl"\n' >> "$CONFIG"
-    echo "Added 'include \"noctalia.kdl\"' to the end of $CONFIG."
+    printf '\n// Added by ujust setup-noctalia\ninclude "noctalia-custom"\n' >> "$CONFIG"
+    echo "Added 'include \"noctalia-custom\"' to the end of $CONFIG."
 fi
 
 echo ""
