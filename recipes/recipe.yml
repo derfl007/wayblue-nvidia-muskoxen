@@ -50,6 +50,7 @@ modules:
         - adw-gtk3-theme # GTK3 theme that understands Noctalia's libadwaita-style color templates
         - nwg-look # GUI to set gtk-theme-name/icon-theme/cursor-theme under niri (no DE settings app to do this otherwise)
         - forticlient # Fortinet VPN client, from the official fortinet.repo above
+        - fuse # libfuse2 + fusermount, required by most AppImages (fuse3 alone isn't enough)
 
     remove:
       packages:
