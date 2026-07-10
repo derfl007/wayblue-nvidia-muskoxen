@@ -51,6 +51,7 @@ modules:
         - nwg-look # GUI to set gtk-theme-name/icon-theme/cursor-theme under niri (no DE settings app to do this otherwise)
         - forticlient # Fortinet VPN client, from the official fortinet.repo above
         - fuse # libfuse2 + fusermount, required by most AppImages (fuse3 alone isn't enough)
+        - mate-polkit # polkit auth agent for niri (no DE agent otherwise) — needed by FortiClient GUI etc.; autostarted via polkit-mate-agent.service user unit
 
     remove:
       packages:
@@ -62,6 +63,9 @@ modules:
     system:
       enabled:
         - docker.service # docker-ce doesn't enable itself on install
+    user:
+      enabled:
+        - polkit-mate-agent.service # polkit agent for niri, unit from files/system/usr/lib/systemd/user
 
   - type: script
     snippets:

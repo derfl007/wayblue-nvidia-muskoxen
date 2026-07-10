@@ -1,0 +1,13 @@
+[Unit]
+Description=MATE polkit authentication agent
+# niri doesn't run XDG autostart entries, so mate-polkit's own autostart file
+# never fires; start the agent with the graphical session instead.
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/libexec/polkit-mate-authentication-agent-1
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
