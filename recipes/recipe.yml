@@ -52,6 +52,7 @@ modules:
         - forticlient # Fortinet VPN client, from the official fortinet.repo above
         - fuse # libfuse2 + fusermount, required by most AppImages (fuse3 alone isn't enough)
         - mate-polkit # polkit auth agent for niri (no DE agent otherwise) — needed by FortiClient GUI etc.; autostarted via polkit-mate-agent.service user unit
+        - gh # GitHub CLI
 
     remove:
       packages:
@@ -74,6 +75,10 @@ modules:
       - rm -rf /usr/share/sddm/themes/sddm
       - mv /tmp/sddm-noctalia-theme /usr/share/sddm/themes/sddm
       - git lfs install --system # install git lfs
+
+  - type: brew # Homebrew/Linuxbrew, installed to /home/linuxbrew at first boot and kept updated
+    nofile-limits: true # raise nofile limits, some brew formulae need more open files at build
+    brew-analytics: false # disable telemetry
 
   - type: default-flatpaks
     configurations:
