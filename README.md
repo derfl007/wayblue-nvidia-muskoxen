@@ -7,7 +7,7 @@ See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup i
 ## Installation
 
 > [!WARNING]  
-> This is an image mainly intended for my own personal use. Use at your own risk. If you do try it and notice something is wrong and want to fix it, PRs are welcome, but I don't offer any guarantee that I will merge them or even look at them.
+> This is an image mainly intended for my own personal use. As such it might include software that you don't need, and it's only tested on my own machine. Use at your own risk. If you do try it and notice something is wrong and want to fix it, PRs are welcome, but I don't offer any guarantee that I will merge them or even look at them.
 
 To rebase an existing atomic Fedora installation to the latest build:
 

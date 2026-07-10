@@ -21,8 +21,10 @@ modules:
     repos:
       files:
         - https://download.docker.com/linux/fedora/docker-ce.repo
+        - https://repo.fortinet.com/repo/forticlient/8.0/el/os/x86_64/fortinet.repo
       keys:
         - https://download.docker.com/linux/fedora/gpg
+        - https://repo.fortinet.com/repo/forticlient/8.0/el/os/x86_64/RPM-GPG-KEY
       copr:
         - atim/starship
         - tofik/nwg-shell # provides nwg-look, not in official Fedora repos
@@ -47,6 +49,7 @@ modules:
         - xdg-desktop-portal-gtk # fixes Flatpak "Save As" dialogs under niri, see files/system/usr/share/xdg-desktop-portal/niri-portals.conf
         - adw-gtk3-theme # GTK3 theme that understands Noctalia's libadwaita-style color templates
         - nwg-look # GUI to set gtk-theme-name/icon-theme/cursor-theme under niri (no DE settings app to do this otherwise)
+        - forticlient # Fortinet VPN client, from the official fortinet.repo above
 
     remove:
       packages:
