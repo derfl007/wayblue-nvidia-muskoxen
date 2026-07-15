@@ -47,7 +47,7 @@ modules:
         - nwg-look # GUI to set gtk-theme-name/icon-theme/cursor-theme under niri (no DE settings app to do this otherwise)
         - forticlient # Fortinet VPN client, from the official fortinet.repo above
         - fuse # libfuse2 + fusermount, required by most AppImages (fuse3 alone isn't enough)
-        - fuselib
+        - fuse-libs
         - mate-polkit # polkit auth agent for niri (no DE agent otherwise) — needed by FortiClient GUI etc.; autostarted via polkit-mate-agent.service user unit
         - gh # GitHub CLI
         - fcitx5 # input method
