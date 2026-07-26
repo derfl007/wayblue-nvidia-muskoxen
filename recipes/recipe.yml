@@ -22,9 +22,11 @@ modules:
       files:
         - https://download.docker.com/linux/fedora/docker-ce.repo
         - https://repo.fortinet.com/repo/forticlient/8.0/el/os/x86_64/fortinet.repo
+        - vscode.repo
       keys:
         - https://download.docker.com/linux/fedora/gpg
         - https://repo.fortinet.com/repo/forticlient/8.0/el/os/x86_64/RPM-GPG-KEY
+        - https://packages.microsoft.com/keys/microsoft.asc
       copr:
         - atim/starship
         - tofik/nwg-shell # provides nwg-look, not in official Fedora repos
@@ -55,6 +57,7 @@ modules:
         - fcitx5-configtool
         - fcitx5-gtk
         - fcitx5-qt
+        - code
 
     remove:
       packages:
